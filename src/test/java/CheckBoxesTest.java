@@ -5,6 +5,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import java.time.Duration;
 import java.util.List;
@@ -28,25 +29,28 @@ public class CheckBoxesTest {
         WebDriver driver = new ChromeDriver(options);
         // ожидание
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        //Объект SoftAssert
+        SoftAssert softAssert = new SoftAssert();
         // открываем страницу
         driver.get("https://the-internet.herokuapp.com/checkboxes");
 
         List<WebElement> checkboxes = driver.findElements(By.cssSelector("[type=checkbox]"));
 
         //проверяем что первый чекбокс unchecked
-        Assert.assertFalse(checkboxes.get(0).isSelected(), "Первый чекбокс unchecked");
+        softAssert.assertFalse(checkboxes.get(0).isSelected(), "Первый чекбокс unchecked");
         checkboxes.get(0).click();
         //проверяем что первый чекбокс checked
-        Assert.assertTrue(checkboxes.get(0).isSelected(), "Первый чекбокс checked");
+        softAssert.assertTrue(checkboxes.get(0).isSelected(), "Первый чекбокс checked");
 
         //проверяем что второй чекбокс checked
-        Assert.assertTrue(checkboxes.get(1).isSelected(), "Второй чекбокс checked");
+        softAssert.assertTrue(checkboxes.get(1).isSelected(), "Второй чекбокс checked");
         checkboxes.get(1).click();
 
         //проверяем что второй чекбокс unchecked
-        Assert.assertFalse(checkboxes.get(1).isSelected(), "Второй чекбокс unchecked");
+        softAssert.assertFalse(checkboxes.get(1).isSelected(), "Второй чекбокс unchecked");
+
+        softAssert.assertAll();
 
         driver.quit();
-
     }
 }
