@@ -40,17 +40,18 @@ public class NotificationMessagesTest {
         //Находим и проверяем нотификацию
         WebElement notification = driver.findElement(By.xpath("//div[@id='flash']"));
         String notificationText = notification.getText().toLowerCase();
-        Assert.assertTrue(notification.isDisplayed(), "Нотификация должна отображаться");
+        softAssert.assertTrue(notification.isDisplayed(), "Нотификация должна отображаться");
         System.out.printf("Нотификация появилась %s%n", notificationText);
 
         //Проверяем, что текст содержит ожидаемую фразу (независимо от регистра и лишних символов)
-        Assert.assertTrue(
+        softAssert.assertTrue(
                 notificationText.contains("action succesful") ||
                 notificationText.contains("action unsuccesful"),
                 "Текст нотификации должен содержать 'Action succesful' или 'Action unsuccesful'"
         );
 
-        driver.quit();
+        softAssert.assertAll();
 
+        driver.quit();
     }
 }
