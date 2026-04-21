@@ -45,7 +45,5 @@ public class TyposTest {
 
         softAssert.assertAll();
         driver.quit();
-
-
     }
 }
